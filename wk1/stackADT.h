@@ -15,7 +15,7 @@ template<typename T>
 class stackADT
 {
     public:
-        virtual void intitializeStack() = 0;
+        virtual void initializeStack() = 0;
             // Method to initialize stack to empty state.
 
         virtual bool isEmptyStack() const = 0;
@@ -27,7 +27,7 @@ class stackADT
         virtual void push(const T & newItem) = 0;
             // Function to add newItem to the stack.
 
-        virtual T top() const = 0;
+        virtual T peek() const = 0;
             // Function to return the top element of the stack.
         
         virtual void pop() = 0;

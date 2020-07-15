@@ -17,6 +17,7 @@
 #include "stackADT.h"
 
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
@@ -137,10 +138,9 @@ void linkedStack<T>::push(const T & newItem) {
    
 template<typename T>
 T linkedStack<T>::peek() const {
-    if (this->isEmptyStack())
-        cout << "Error: The stack is empty." << endl; // checks for an empty stack
-    else 
-        return stackTop->data; // Returns the top element
+    assert(stackTop != nullptr); // If stack is empty, terminate.
+
+    return stackTop->data; // Returns the top element
 }
     
 template<typename T>
@@ -202,7 +202,7 @@ void linkedStack<T>::copyStack(const linkedStack<T> & otherStack) {
         while (current != nullptr) {
             newNode = new node<T>;
             
-            newNode->data = current->info;
+            newNode->data = current->data;
             newNode->link = nullptr;
             last->link = newNode;
             last = newNode;
