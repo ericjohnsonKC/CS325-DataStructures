@@ -24,7 +24,7 @@ using namespace std;
 //  Declare functions needed for main program...
 void displayMenu();  // This function will display the main menu
 
-int getMenuSelection();  // This function will get user menu selection
+int userMenuSelection();  // This function will get user menu selection
 
 int menuSelection;  // This will hold the user's menu selection
 
@@ -32,7 +32,7 @@ linkedStack<webPage> webPages_back;  // This is the linked list stack that will 
 
 linkedStack<webPage> webPages_forward;  // This will hold the stack for webPages going forward.
 
-void getNewWebPageUserInput(webPage & newWebPage); // This function will be used when adding a new page to get user input
+void newWebPageUserInput(webPage & newWebPage); // This function will be used when adding a new page to get user input
 
 void listAllPages(linkedStack<webPage> webPages_back, linkedStack<webPage> webPages_forward);  
     // This function will list all the webPages from the forward and back stacks. 
@@ -44,7 +44,7 @@ int main()
 {
     displayMenu();
 
-    menuSelection = getMenuSelection();
+    menuSelection = userMenuSelection();
 
 
     while (menuSelection != 9){
@@ -95,7 +95,7 @@ int main()
             case 4: {
                 resetTheStacks(webPages_back, webPages_forward); // Put all the visited pages on the back stack to add new page to top
                 webPage newWebPage; // Creates a new webPage
-                getNewWebPageUserInput(newWebPage);  // Gets user input for webPage properties
+                newWebPageUserInput(newWebPage);  // Gets user input for webPage properties
                 webPages_back.push(newWebPage);  // Pushes the new webPage onto the stack.
                 cout << "Page added. " << endl;
                 break;
@@ -118,7 +118,7 @@ int main()
         }
 
         displayMenu();
-        menuSelection = getMenuSelection();
+        menuSelection = userMenuSelection();
     }
 
     cout << "Exiting the program..." << endl;
@@ -138,27 +138,29 @@ void displayMenu(){
     cout << "9. Exit the program" << endl << endl;
 }
 
-int getMenuSelection(){
+int userMenuSelection(){
+    string str;  // Will temporarily hold string input before converting to type int
     int menuSelection;
     
     cout << "Please enter a numeric option from the menu: ";
-    cin >> menuSelection;
+    getline(cin, str);
+    menuSelection = stoi(str);  // Convert user input to type int
     cout << endl;
 
     return menuSelection;
 }
 
-void getNewWebPageUserInput(webPage & newWebPage) {
+void newWebPageUserInput(webPage & newWebPage) {
     string title, description, url, dateAccessed; // declare temp variables to hold input
-    
+        
     cout << endl << "Please enter web page title: ";
-    cin >> title;
+    getline(cin, title);
     cout << endl << "Please enter web page description: ";
-    getline(cin >> ws, description);
+    getline(cin, description);
     cout << endl << "Please enter web page url: ";
-    cin >> url;
+    getline(cin, url);
     cout << endl << "Please enter web page date accessed: ";
-    cin >> dateAccessed;
+    getline(cin, dateAccessed);
 
     newWebPage.setTitle(title);
     newWebPage.setDescription(description);
