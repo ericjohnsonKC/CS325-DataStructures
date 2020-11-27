@@ -15,9 +15,13 @@
  *  array is challenging enough to warrant going thru the exercise.
  * ***********************************/
 
+#ifndef queueUsingArray_h
+#define queueUsingArray_h
+
 #include "queueADT.h"
 
 #include <cassert>
+#include <iostream>
 
 using namespace std;
 
@@ -97,13 +101,18 @@ class queueUsingArray: public queueAbstractClass<T>
 template<typename T>
 const queueUsingArray<T>& queueUsingArray<T>::operator=(const queueUsingArray<T>& otherQueue) {
     if(this != &otherQueue){       // Avoid a self copy
-        if(!this->isEmptyQueue){        //If queue isn't empty, initialize it
-            this->initializeQueue();
-
-            //This function needs to be completed
+        if(maxQueueSize != otherQueue.maxQueueSize){    //If the maxQueueSize differs, must create new array
+            delete [] list;
+            maxQueueSize = otherQueue.maxQueueSize;  
+            list = new T[maxQueueSize];
+        }
+        
+        initializeQueue();  //Set the queue to an initial ready state
+        for(int i = 0; i < otherQueue.count; i++){
+            addQueue(otherQueue.list[queueFront + i]);
         }
     }  
-
+    return *this;
 }
 
 template<typename T>
@@ -169,7 +178,7 @@ queueUsingArray<T>::queueUsingArray(int queueSize) {
     {
         maxQueueSize = queueSize;   //Set maxQueueSize to queueSize
         queueFront = 0;             //initialize queueFront
-        queueRear = maxQueueSize -1 //initialize queueRear
+        queueRear = maxQueueSize -1; //initialize queueRear
         count = 0;
         list = new T[maxQueueSize]; //create the array to hold queue elements
     }
@@ -179,3 +188,5 @@ template<typename T>
 queueUsingArray<T>::~queueUsingArray(){
     delete [] list;
 }
+
+#endif
