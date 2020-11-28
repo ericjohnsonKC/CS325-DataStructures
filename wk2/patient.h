@@ -57,6 +57,9 @@ class Patient{
         string getDateOfVisit();
             // Returns the patient's dateOfVisit
 
+        Patient(string &firstName, string &lastName, string &typeIns, int &ssn, string &address, string &date);
+            // Constructor
+
     private:
         string firstName;
         string lastName;
@@ -113,6 +116,15 @@ void Patient::setDateOfVisit(string patientDateOfVisit){
 
 string Patient::getDateOfVisit(){
     return dateOfVisit;
+}
+
+Patient::Patient(string &firstName, string &lastName, string &typeIns, int &ssn, string &address, string &date){
+    this->firstName = firstName;
+    this->lastName = lastName;
+    this->typeOfInsurance = typeIns;
+    this->ssn = ssn;
+    this->address = address;
+    this->dateOfVisit = date;
 }
 
 #endif
