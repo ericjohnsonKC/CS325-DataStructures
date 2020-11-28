@@ -30,7 +30,7 @@ class queueAbstractClass
             //Function to initialize the queue to an empty state.
             //Postcondition: The queue is empty.
 
-        virtual T front() const = 0;
+        virtual T peek() const = 0;
             //Function to return the first element of the queue.
             //Precondition: The queue exists and is not empty.
             //Postcondition: If the queue is empty, the program 
@@ -44,13 +44,13 @@ class queueAbstractClass
             //  terminates; otherwise, the last element of the queue
             //  is returned.
 
-        virtual void addQueue(const T& queueElement) = 0;
+        virtual void enQueue(const T& queueElement) = 0;
             //Function to add queueElement to the queue.
             //Precondition: The queue exists and is not full.
             //Postcondition: The queue is changed and queueElement
             //  is added to the queue.
 
-        virtual void deleteQueue() = 0;
+        virtual void deQueue() = 0;
             //Function to remove the first element of the queue.
             //Precondition: The queue exists and is not empty.
             //Postcondition: The queue is changed and the first element

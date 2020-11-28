@@ -50,9 +50,10 @@ int main(){
            case 3 : previousPatient();
            case 4 : deletePatient();
            case 5 : viewCurrentPatient();
-           default:
+           default:{
                 cout << "Invalid selection" << endl;
                 break;
+           }
        }
 
        menuSelection = displayMenu();
@@ -74,12 +75,12 @@ int displayMenu(){
     cout << "5. View current patient" << endl;
     cout << "9. Exit the program" << endl << endl;
 
-    string str;  // Will temporarily hold string input before converting to type int
+    string tempStr;  // Will temporarily hold string input before converting to type int
     int menuSelection;
     
     cout << "Please enter a numeric option from the menu: ";
-    getline(cin, str);
-    menuSelection = stoi(str);  // Convert user input to type int
+    getline(cin, tempStr);
+    menuSelection = stoi(tempStr);  // Convert user input to type int
     cout << endl;
 
     return menuSelection;
@@ -114,6 +115,8 @@ void addPatient(){
 
     waitingQueue.addQueue(patient);
         // Adds the patient to the queue
+
+    cout << "Patient added to the waiting list." << endl << endl;
     
 }
 

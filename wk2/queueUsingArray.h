@@ -46,7 +46,7 @@ class queueUsingArray: public queueAbstractClass<T>
             //Function to initialize the queue to an empty state.
             //Postcondition: The queue is empty.
 
-        T front() const;
+        T peek() const;
             //Function to return the first element of the queue.
             //Precondition: The queue exists and is not empty.
             //Postcondition: If the queue is empty, the program
@@ -60,13 +60,13 @@ class queueUsingArray: public queueAbstractClass<T>
             //  terminates; otherwise the last element of the 
             //  queue is returned.
 
-        void addQueue(const T& queueElement);
+        void enQueue(const T& queueElement);
             //Function to add queueElement to the queue.
             //Precondition: The queue exists and is not full.
             //Postcondition: The queue is changed and queueElement
             //  is added to the queue.
         
-        void deleteQueue();
+        void deQueue();
             //Function to remove the first element of the queue.
             //Precondition: The queue exists and is not empty.
             //Postcondition: The queue is changed and the first 
@@ -83,7 +83,7 @@ class queueUsingArray: public queueAbstractClass<T>
 
     private:
         int maxQueueSize;   //variable to store the max queue size
-        int count;          //variable to store the number of 
+        int size;          //variable to store the number of 
                             //elements in the queue
         int queueFront;     //variable to point to the first
                             //element of the queue
@@ -108,7 +108,7 @@ const queueUsingArray<T>& queueUsingArray<T>::operator=(const queueUsingArray<T>
         }
         
         initializeQueue();  //Set the queue to an initial ready state
-        for(int i = 0; i < otherQueue.count; i++){
+        for(int i = 0; i < otherQueue.size; i++){
             addQueue(otherQueue.list[queueFront + i]);
         }
     }  
@@ -117,12 +117,12 @@ const queueUsingArray<T>& queueUsingArray<T>::operator=(const queueUsingArray<T>
 
 template<typename T>
 bool queueUsingArray<T>::isEmptyQueue() const {
-    return (count == 0);   // If count is zero, queue is empty
+    return (size == 0);   // If count is zero, queue is empty
 }
 
 template<typename T>
 bool queueUsingArray<T>::isFullQueue() const {
-    return (count == maxQueueSize);  // If count == maxQueueSize, 
+    return (size == maxQueueSize);  // If count == maxQueueSize, 
                                      // then queue is full
 }
 
@@ -130,11 +130,11 @@ template<typename T>
 void queueUsingArray<T>::initializeQueue() {
     queueFront = 0;                   // Sets the queue to a ready state
     queueRear = maxQueueSize - 1;
-    count = 0;
+    size = 0;
 }
 
 template<typename T>
-T queueUsingArray<T>::front() const {
+T queueUsingArray<T>::peek() const {
     assert(!isEmptyQueue());
     return list[queueFront];
 }
@@ -146,10 +146,10 @@ T queueUsingArray<T>::back() const {
 }
 
 template<typename T>
-void queueUsingArray<T>::addQueue(const T & newElement) {
+void queueUsingArray<T>::enQueue(const T & newElement) {
     if (!isFullQueue()) {
         queueRear = (queueRear + 1) % maxQueueSize;  // This makes the queue
-        count++;                                     // array circular.
+        size++;                                     // array circular.
         list[queueRear] = newElement;
     }
     else
@@ -159,9 +159,9 @@ void queueUsingArray<T>::addQueue(const T & newElement) {
 }
 
 template<typename T>
-void queueUsingArray<T>::deleteQueue(){
+void queueUsingArray<T>::deQueue(){
     if (!isEmptyQueue()) {
-        count--;
+        size--;
         queueFront = (queueFront + 1) % maxQueueSize;  //This makes the queue array
     }                                                  //circular.
 }
@@ -179,7 +179,7 @@ queueUsingArray<T>::queueUsingArray(int queueSize) {
         maxQueueSize = queueSize;   //Set maxQueueSize to queueSize
         queueFront = 0;             //initialize queueFront
         queueRear = maxQueueSize -1; //initialize queueRear
-        count = 0;
+        size = 0;
         list = new T[maxQueueSize]; //create the array to hold queue elements
     }
 }
