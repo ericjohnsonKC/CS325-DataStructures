@@ -24,19 +24,23 @@ using namespace std;
 
 queueUsingArray<Patient> waitingQueue;  // This is the queue that will hold patients
 
+Patient currentPatient;
+
+Patient prevPatient;
+
 int displayMenu();  // This will display the main menu and return selection
 
 int menuSelection;
 
 void addPatient(); // Adds a pateint to the queue
 
-Patient nextPatient(); // Outputs the next patient to the console
+void nextPatient(); // Outputs the next patient to the console
 
-Patient previousPatient(); // Outputs the previous patient to the console
+void previousPatient(); // Outputs the previous patient to the console
 
 void deletePatient(); // Deletes the next patient from the queue
 
-Patient viewCurrentPatient(); // Outputs the current patient to the console
+void viewCurrentPatient(); // Outputs the current patient to the console
 
 
 int main(){
@@ -45,15 +49,24 @@ int main(){
 
    while(menuSelection != 9){
        switch(menuSelection){
-           case 1 : addPatient();
-           case 2 : nextPatient();
-           case 3 : previousPatient();
-           case 4 : deletePatient();
-           case 5 : viewCurrentPatient();
-           default:{
+            case 1 : 
+                addPatient();
+                break;
+            case 2 : 
+                nextPatient();
+                break;
+            case 3 : 
+                previousPatient();
+                break;
+            case 4 : 
+                deletePatient();
+                break;
+            case 5 : 
+                viewCurrentPatient();
+                break;
+            default:
                 cout << "Invalid selection" << endl;
                 break;
-           }
        }
 
        menuSelection = displayMenu();
@@ -113,25 +126,43 @@ void addPatient(){
     Patient patient(firstName, lastName, typeOfInsurance, ssn, address, dateOfVisit);  
         //creates a patient object
 
-    waitingQueue.addQueue(patient);
+    waitingQueue.enQueue(patient);
         // Adds the patient to the queue
 
     cout << "Patient added to the waiting list." << endl << endl;
     
 }
 
-Patient nextPatient(){
-    
+void nextPatient(){
+    prevPatient = currentPatient;
+    currentPatient = waitingQueue.peek();
+    waitingQueue.deQueue();
+
+    cout << "The next patient is now being seen." << endl << endl;
 }
 
-Patient previousPatient(){
-    
+void previousPatient(){
+    cout << "Previous patient: " << endl;
+    cout << "First name: " << prevPatient.getFirstName() << endl;
+    cout << "Last name: " << prevPatient.getLastName() << endl;
+    cout << "Type of insurance: " << prevPatient.getTypeOfInsurance() << endl;
+    cout << "SSN: " << prevPatient.getSsn() << endl;
+    cout << "Address: " << prevPatient.getAddress() << endl;
+    cout << "Date of visit: " << prevPatient.getDateOfVisit() << endl << endl;
 }
 
 void deletePatient(){
-    
+    waitingQueue.deQueue();
+
+    cout << "The next patient has been removed from the waiting list." << endl << endl;
 }
 
-Patient viewCurrentPatient(){
-    
+void viewCurrentPatient(){
+    cout << "Current patient: " << endl;
+    cout << "First name: " << currentPatient.getFirstName() << endl;
+    cout << "Last name: " << currentPatient.getLastName() << endl;
+    cout << "Type of insurance: " << currentPatient.getTypeOfInsurance() << endl;
+    cout << "SSN: " << currentPatient.getSsn() << endl;
+    cout << "Address: " << currentPatient.getAddress() << endl;
+    cout << "Date of visit: " << currentPatient.getDateOfVisit() << endl << endl;
 }

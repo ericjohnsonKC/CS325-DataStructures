@@ -57,7 +57,7 @@ class Patient{
         string getDateOfVisit();
             // Returns the patient's dateOfVisit
 
-        Patient(string &firstName, string &lastName, string &typeIns, int &ssn, string &address, string &date);
+        Patient(const string &firstName = "", const string &lastName = "", const string &typeIns = "", const int &ssn = 0, const string &address = "", const string &date = "");
             // Constructor
 
     private:
@@ -118,7 +118,7 @@ string Patient::getDateOfVisit(){
     return dateOfVisit;
 }
 
-Patient::Patient(string &firstName, string &lastName, string &typeIns, int &ssn, string &address, string &date){
+Patient::Patient(const string &firstName, const string &lastName, const string &typeIns, const int &ssn, const string &address, const string &date){
     this->firstName = firstName;
     this->lastName = lastName;
     this->typeOfInsurance = typeIns;
