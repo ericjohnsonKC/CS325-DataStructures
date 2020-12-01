@@ -1,30 +1,25 @@
 #include <string>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
-class Thing
-{
-    public:
-        // int getLength()
-        // {
-        //     return (list.size);
-        // }
+int main(){
+    ofstream myFile;
+    myFile.open("example.txt");
+    myFile << "Writing this to a file.\n";
+    myFile << "Line number two.\n";
+    myFile << "Line number three.\n";
+    myFile.close();
 
-    //private:
-        int list[5];
-};
-
-Thing thg1;
-
-double a[6];
-
-int main() {
+    fstream myFile2;
+    myFile2.open("example2.txt");
+    myFile2 << "test test\n";
+    myFile2.close();
     
-    cout << sizeof(thg1.list) << endl;
-
     return 0;
 }
+
 
 
 
