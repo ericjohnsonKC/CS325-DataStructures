@@ -1,0 +1,73 @@
+Main program notes
+
+menu:
+    options:
+        add new book
+        remove book
+        remove all
+        sort
+
+using a linked list and a text file
+
+add new book: this adds to the list and to the text file
+    add new book to linked list
+    open txt file, overwrite with linked list, close file
+
+remove book: removes from the list and the text file
+    remove book from linked list    
+    open text file, overwrite with linked list, close file
+
+remove all: program deletes list
+    delete all nodes from linked list
+    open text file, overwrite with linked list, close file
+
+sort: create list from text file and sort alphabetically by author using insertion sort
+    sort the list
+
+
+
+psuedocode
+
+display time
+
+create linked list
+
+check to see if txt file exists
+    if it does, read file into linked list
+    if it doesn't, create it
+
+display menu, get selection
+
+displayTime()
+
+readFile()
+    create ifstream
+    open txt file
+    read csv
+    close text file
+
+addnewbook()
+    get book info from console
+    create new book object with info
+    add book to linked list
+    create ofstream
+    open txt file
+    write csv
+    close text file
+
+removebook()
+    remove book from linked list
+    create ofstream
+    open txt file
+    write csv
+    close text file
+
+removeall()
+    remove all nodes from linked list
+    create ofstream
+    open text file
+    write csv
+    close text file
+
+sort
+    insertion sort on linked list
