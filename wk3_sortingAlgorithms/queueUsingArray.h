@@ -71,7 +71,7 @@ class queueUsingArray: public queueAbstractClass<T>
             //Precondition: The queue exists and is not empty.
             //Postcondition: The queue is changed and the first 
             //  element is removed from the queue.
-
+        
         queueUsingArray(int queueSize = 100);
             //Constructor
         

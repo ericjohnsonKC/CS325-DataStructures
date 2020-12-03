@@ -11,7 +11,6 @@
 *   insertion sort on a linked list.
 **************************************/
 
-#include "queueADT.h"
 #include "queueUsingArray.h"
 #include "book.h"
 
@@ -26,6 +25,7 @@ using namespace std;
 void displayTime();  // This displays the local date and time
 
 queueUsingArray<Book> books;  //This  will hold the books
+int bookListSize = 0;
 
 void checkIfFileExists();   //This will check if the text file already exists
                             //and create it if it doesn't.  If the file does exist,
@@ -36,7 +36,7 @@ int displayMenu(); // This will display the main menu and return selection
 int menuSelection;
 
 void addBook();
-void removeBook();
+void removeBook(queueUsingArray<Book> &books);
 void removeAllBooks();
 void sortBooks();
 
@@ -54,7 +54,7 @@ int main(){
                     addBook();
                     break;
                 case 2 : 
-                    removeBook();
+                    removeBook(books);
                     break;
                 case 3 : 
                     removeAllBooks();
@@ -86,8 +86,34 @@ void displayTime(){
 void checkIfFileExists(){
     ifstream txtFile;
     txtFile.open("books.txt");
+    bool txtFileExists = false;
     if(txtFile){
-        cout << "read file into linked list here";
+        txtFileExists = true;
+    }
+    txtFile.close();    
+    if(txtFileExists){
+        ifstream txtFile;
+        txtFile.open("booksl.txt");
+        while(txtFile.good()){
+            Book book;
+            string info;
+            getline(txtFile, info, ',');
+            book.setAuthor(info);
+            getline(txtFile, info, ',');
+            book.setTitle(info);
+            getline(txtFile, info, ',');
+            book.setPublisher(info);
+            getline(txtFile, info, ',');
+            book.setDescription(info);
+            getline(txtFile, info, ',');
+            book.setIsbn(info);
+            getline(txtFile, info, ',');
+            book.setYearPublished(info);
+
+            books.enQueue(book);
+            bookListSize++;
+        }
+
     }else{
         ofstream textFile;
         textFile.open("books.txt");
@@ -143,13 +169,40 @@ void addBook(){
     book.setYearPublished(input);
 
     books.enQueue(book);
+    bookListSize++;
 
-    
-
+    ofstream textFile("books.txt", ios::app);
+    textFile    << book.getAuthor() << ","
+                << book.getTitle() << ","
+                << book.getPublisher() << ","
+                << book.getDescription() << ","
+                << book.getIsbn() << ","
+                << book.getYearPublished() << endl;
+    textFile.close();
 }
 
-void removeBook(){
-    cout << "removing book";
+void removeBook(queueUsingArray<Book> &books){
+    cout << "Removing book from the list...";
+
+    books.deQueue();
+    bookListSize--;
+
+    queueUsingArray<Book> booksCopy(books);
+
+    ofstream txtFile;
+    txtFile.open("books.txt");
+
+    for(int i = bookListSize; i > 0; i--){
+        txtFile << booksCopy.peek().getAuthor() << ","
+                << booksCopy.peek().getTitle() << ","
+                << booksCopy.peek().getPublisher() << ","
+                << booksCopy.peek().getDescription() << ","
+                << booksCopy.peek().getIsbn() << ","
+                << booksCopy.peek().getYearPublished() << endl;
+
+        booksCopy.deQueue();
+    }
+
 }
 
 void removeAllBooks(){
