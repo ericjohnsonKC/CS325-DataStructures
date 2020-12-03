@@ -187,26 +187,37 @@ void removeBook(queueUsingArray<Book> &books){
     books.deQueue();
     bookListSize--;
 
-    queueUsingArray<Book> booksCopy(books);
+    queueUsingArray<Book> booksCopy;
 
     ofstream txtFile;
     txtFile.open("books.txt");
 
     for(int i = bookListSize; i > 0; i--){
-        txtFile << booksCopy.peek().getAuthor() << ","
-                << booksCopy.peek().getTitle() << ","
-                << booksCopy.peek().getPublisher() << ","
-                << booksCopy.peek().getDescription() << ","
-                << booksCopy.peek().getIsbn() << ","
-                << booksCopy.peek().getYearPublished() << endl;
+        txtFile << books.peek().getAuthor() << ","
+                << books.peek().getTitle() << ","
+                << books.peek().getPublisher() << ","
+                << books.peek().getDescription() << ","
+                << books.peek().getIsbn() << ","
+                << books.peek().getYearPublished() << endl;
 
-        booksCopy.deQueue();
+        booksCopy.enQueue(books.peek());
+        books.deQueue();
     }
+    txtFile.close();
 
+    for(int i = bookListSize; i > 0; i--){
+        books.enQueue(booksCopy.peek());
+        booksCopy.deQueue();
+    }    
 }
 
 void removeAllBooks(){
-    cout << "removing all books";
+    cout << "Removing all books: ";
+
+    for(int i = bookListSize; i > 0; i--){
+        books.deQueue();
+        bookListSize--;
+    }     
 }
 
 void sortBooks(){

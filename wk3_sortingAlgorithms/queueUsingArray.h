@@ -109,7 +109,7 @@ const queueUsingArray<T>& queueUsingArray<T>::operator=(const queueUsingArray<T>
         
         initializeQueue();  //Set the queue to an initial ready state
         for(int i = 0; i < otherQueue.size; i++){
-            addQueue(otherQueue.list[queueFront + i]);
+            enQueue(otherQueue.list[queueFront + i]);
         }
     }  
     return *this;
@@ -178,7 +178,7 @@ queueUsingArray<T>::queueUsingArray(int queueSize) {
     {
         maxQueueSize = queueSize;   //Set maxQueueSize to queueSize
         queueFront = 0;             //initialize queueFront
-        queueRear = maxQueueSize -1; //initialize queueRear
+        queueRear = maxQueueSize - 1; //initialize queueRear
         size = 0;
         list = new T[maxQueueSize]; //create the array to hold queue elements
     }
