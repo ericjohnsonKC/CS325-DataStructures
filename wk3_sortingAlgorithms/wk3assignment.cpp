@@ -33,16 +33,19 @@ void checkIfFileExists();   //This will check if the text file already exists
 
 int displayMenu(); // This will display the main menu and return selection
 
-int menuSelection;
+int menuSelection;  //This will hold user's menu selection
 
-void addBook();
-void removeBook(queueUsingArray<Book> &books);
-void removeAllBooks();
-void sortBooks();
+void addBook();  //Adds a book to the list and to the books.txt file
+void removeBook();  //Removes a book from the list and the books.txt file
+void removeAllBooks();  //Removes all books from the list and the books.text file
+void sortBooks();  //Sorts books in alphabetical order by author
+template <class T>
+    void insertionSort(T list[], int length);  //This will perform the insertion sort algorithm
+void readFile(); //This function will read the text file.
 
 int main(){   
 
-    displayTime();
+    displayTime();  
 
     checkIfFileExists();
 
@@ -54,7 +57,7 @@ int main(){
                     addBook();
                     break;
                 case 2 : 
-                    removeBook(books);
+                    removeBook();
                     break;
                 case 3 : 
                     removeAllBooks();
@@ -92,28 +95,8 @@ void checkIfFileExists(){
     }
     txtFile.close();    
     if(txtFileExists){
-        ifstream txtFile;
-        txtFile.open("booksl.txt");
-        while(txtFile.good()){
-            Book book;
-            string info;
-            getline(txtFile, info, ',');
-            book.setAuthor(info);
-            getline(txtFile, info, ',');
-            book.setTitle(info);
-            getline(txtFile, info, ',');
-            book.setPublisher(info);
-            getline(txtFile, info, ',');
-            book.setDescription(info);
-            getline(txtFile, info, ',');
-            book.setIsbn(info);
-            getline(txtFile, info, ',');
-            book.setYearPublished(info);
-
-            books.enQueue(book);
-            bookListSize++;
-        }
-
+        readFile();        
+       
     }else{
         ofstream textFile;
         textFile.open("books.txt");
@@ -121,6 +104,72 @@ void checkIfFileExists(){
     }
 
 }
+
+void readFile(){
+    ifstream txtFile;
+    txtFile.open("books.txt");
+    
+    string info;
+    while(getline(txtFile, info, ',')){
+        Book book;
+        book.setAuthor(info);
+        getline(txtFile, info, ',');
+        book.setTitle(info);
+        getline(txtFile, info, ',');
+        book.setPublisher(info);
+        getline(txtFile, info, ',');
+        book.setDescription(info);
+        getline(txtFile, info, ',');
+        book.setIsbn(info);
+        getline(txtFile, info);
+        book.setYearPublished(info);
+
+        books.enQueue(book);
+        bookListSize++;
+    }
+
+    txtFile.close();
+
+    //*****Old read file code block******
+    // ifstream txtFile;
+        // txtFile.open("books.txt");
+        // while(txtFile.good()){
+        //     Book book;
+        //     string info;
+        //     getline(txtFile, info, ',');
+        //     book.setAuthor(info);
+        //     getline(txtFile, info, ',');
+        //     book.setTitle(info);
+        //     getline(txtFile, info, ',');
+        //     book.setPublisher(info);
+        //     getline(txtFile, info, ',');
+        //     book.setDescription(info);
+        //     getline(txtFile, info, ',');
+        //     book.setIsbn(info);
+        //     getline(txtFile, info, '\n');
+        //     book.setYearPublished(info);
+
+        //     books.enQueue(book);
+        //     bookListSize++;
+        // }
+        //********End read file block*******
+}
+
+// void displayList(){
+//     queueUsingArray<Book> booksCopy;
+
+//     for(int i = bookListSize; i > 0; i--){
+//         cout << i << "... " << books.peek().getAuthor() << endl;
+//         booksCopy.enQueue(books.peek());
+//         books.deQueue();
+//     }
+
+//     for(int i = bookListSize; i > 0; i--){
+//         books.enQueue(booksCopy.peek());
+//         booksCopy.deQueue();
+//     }
+// }
+
 
 int displayMenu(){
 
@@ -181,7 +230,7 @@ void addBook(){
     textFile.close();
 }
 
-void removeBook(queueUsingArray<Book> &books){
+void removeBook(){
     cout << "Removing book from the list...";
 
     books.deQueue();
@@ -217,9 +266,67 @@ void removeAllBooks(){
     for(int i = bookListSize; i > 0; i--){
         books.deQueue();
         bookListSize--;
-    }     
+    }  
+
+    ofstream textFile;
+    textFile.open("books.txt", ios::trunc);
+    textFile.close();
 }
 
 void sortBooks(){
-    cout << "sorting books";
+    cout << "Sorting books...";
+
+    Book *tempArray;
+    tempArray = new Book[bookListSize];
+
+    for(int i = 0; i < bookListSize; i++){  //This will put books in an array of exact size of the list
+        tempArray[i] = books.peek();        //for sorting.
+        books.deQueue();
+    }
+
+    insertionSort(tempArray, bookListSize);
+
+    for(int i = 0; i < bookListSize; i++){
+        books.enQueue(tempArray[i]);
+    }
+
+    queueUsingArray<Book> booksCopy;
+
+    ofstream txtFile;
+    txtFile.open("books.txt");
+
+    for(int i = bookListSize; i > 0; i--){
+        txtFile << books.peek().getAuthor() << ","
+                << books.peek().getTitle() << ","
+                << books.peek().getPublisher() << ","
+                << books.peek().getDescription() << ","
+                << books.peek().getIsbn() << ","
+                << books.peek().getYearPublished() << endl;
+
+        booksCopy.enQueue(books.peek());
+        books.deQueue();
+    }
+    txtFile.close();
+
+    for(int i = bookListSize; i > 0; i--){
+        books.enQueue(booksCopy.peek());
+        booksCopy.deQueue();
+    }
+}
+
+template <class T>
+void insertionSort(T list[], int length){
+    for(int firstOutOfOrder = 1; firstOutOfOrder < length; firstOutOfOrder++)
+        if(list[firstOutOfOrder].getAuthor() < list[firstOutOfOrder - 1].getAuthor()){
+            T temp = list[firstOutOfOrder];
+            int location = firstOutOfOrder;
+
+            do{
+                list[location] = list[location - 1];
+                location--;
+            }
+            while(location > 0 && list[location - 1].getAuthor() > temp.getAuthor());
+
+            list[location] = temp;
+        }
 }

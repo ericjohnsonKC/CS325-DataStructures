@@ -1,1 +1,5 @@
-Gary Gaetti,Hot Corner,Elias,Grounders ,893478347834,2020
+adam,adam title,adam pub,adam desc,adam isbn,adam pub
+eric,eric title,eric pub,eric desc,eric isbn,eric yr
+gary,gary title,gary pub,gary desc,gary isbn,gary yr
+gary,gary title ,gary pub,gary desc,gary isbn,gary yr
+zelda,zelda title,zelda pub,zelda desc,zelda isbn,zelda pub
