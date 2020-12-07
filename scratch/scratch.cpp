@@ -1,26 +1,24 @@
-#include <string>
 #include <iostream>
+#include <string>
 #include <fstream>
 
 using namespace std;
 
 int main(){
-    ofstream myFile;
-    myFile.open("example.txt");
-    myFile << "Writing this to a file.\n";
-    myFile << "Line number two.\n";
-    myFile << "Line number three.\n";
-    myFile.close();
 
-    fstream myFile2;
-    myFile2.open("example2.txt");
-    myFile2 << "test test\n";
-    myFile2.close();
-    
+    ofstream theFile("players.txt");
+
+    cout << "Enter players ID, Name, and Points" << endl;
+    cout << "Ctl+Z to exit" << endl;
+
+    int idNumber;
+    string name;
+    double points;
+
+    while(cin >> idNumber >> name >> points){
+        theFile << idNumber << ' ' << name << ' ' << points << endl;
+    }
+
     return 0;
-}
 
-
-
-
-
+};
