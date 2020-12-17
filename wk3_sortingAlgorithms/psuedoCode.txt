@@ -10,7 +10,9 @@ menu:
 using a linked list and a text file
 
 add new book: this adds to the list and to the text file
-    add new book to linked list
+    add new book to linked list:
+        create new book object
+        get user input, set book properties
     open txt file, overwrite with linked list, close file
 
 remove book: removes from the list and the text file

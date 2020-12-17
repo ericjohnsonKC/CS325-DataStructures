@@ -42,6 +42,15 @@ void sortBooks();  //Sorts books in alphabetical order by author
 template <class T>
     void insertionSort(T list[], int length);  //This will perform the insertion sort algorithm
 void readFile(); //This function will read the text file.
+void searchByAuthor();
+template <class T>
+int searchAuthor(T list[], int length, string &item);
+void searchByTitle();
+template <class T>
+int searchTitle(T list[], int length, string &item);
+void searchByIsbn();
+template <class T>
+int searchIsbn(T list[], int length, string &item);
 
 int main(){   
 
@@ -64,6 +73,15 @@ int main(){
                     break;
                 case 4 : 
                     sortBooks();
+                    break;
+                case 5 : 
+                    searchByAuthor();
+                    break;
+                case 6 :
+                    searchByTitle();
+                    break;
+                case 7 : 
+                    searchByIsbn();
                     break;
                 default:
                     cout << "Invalid selection" << endl;
@@ -139,6 +157,9 @@ int displayMenu(){
     cout << "2. Remove a book" << endl;
     cout << "3. Remove all books" << endl;
     cout << "4. Sort the books" << endl;
+    cout << "5. Search by author" << endl;
+    cout << "6. Search by title" << endl;
+    cout << "7. Search by ISBN" << endl;
     cout << "9. Exit the program" << endl << endl;
 
     string tempStr;  // Will temporarily hold string input before converting to type int
@@ -289,4 +310,176 @@ void insertionSort(T list[], int length){
 
             list[location] = temp;
         }
+}
+
+void searchByAuthor(){
+    string key;
+    int result;
+
+    cout << "Enter the author you want to search for: ";
+    getline(cin, key);
+    cout << endl;
+
+    cout << "Searching books..." << endl << endl;
+
+    Book *tempArray;
+    tempArray = new Book[bookListSize];
+
+    for(int i = 0; i < bookListSize; i++){  //This will put books in an array of exact size of the list
+        tempArray[i] = books.peek();        //for searching.
+        books.deQueue();
+    }
+
+    result = searchAuthor(tempArray, bookListSize, key);
+
+    for(int i = 0; i < bookListSize; i++){
+        books.enQueue(tempArray[i]);
+    }
+
+    if(result == -1){
+        cout << "The author was not found." << endl;
+    }else{
+        cout << "Author: " << tempArray[result].getAuthor() << endl;
+        cout << "Title: " << tempArray[result].getTitle() << endl;
+        cout << "Publisher: " << tempArray[result].getPublisher() << endl;
+        cout << "Description: " << tempArray[result].getDescription() << endl;
+        cout << "ISBN: " << tempArray[result].getIsbn() << endl;
+        cout << "Year published: " << tempArray[result].getYearPublished() << endl << endl;
+    }
+}
+
+template <class T>
+int searchAuthor(T list[], int length, string &item){
+
+    int loc;
+    bool found = false;
+
+    loc = 0;
+
+    while(loc < length && !found)
+        if(list[loc].getAuthor() == item)
+            found = true;
+        else
+        {
+            loc++;
+        }
+    if(found)
+        return loc;
+    else 
+        return -1;      
+}
+        
+void searchByTitle(){
+    string key;
+    int result;
+
+    cout << "Enter the title you want to search for: ";
+    getline(cin, key);
+    cout << endl;
+
+    cout << "Searching books..." << endl << endl;
+
+    Book *tempArray;
+    tempArray = new Book[bookListSize];
+
+    for(int i = 0; i < bookListSize; i++){  //This will put books in an array of exact size of the list
+        tempArray[i] = books.peek();        //for searching.
+        books.deQueue();
+    }
+
+    result = searchTitle(tempArray, bookListSize, key);
+
+    for(int i = 0; i < bookListSize; i++){
+        books.enQueue(tempArray[i]);
+    }
+
+    if(result == -1){
+        cout << "The title was not found." << endl;
+    }else{
+        cout << "Author: " << tempArray[result].getAuthor() << endl;
+        cout << "Title: " << tempArray[result].getTitle() << endl;
+        cout << "Publisher: " << tempArray[result].getPublisher() << endl;
+        cout << "Description: " << tempArray[result].getDescription() << endl;
+        cout << "ISBN: " << tempArray[result].getIsbn() << endl;
+        cout << "Year published: " << tempArray[result].getYearPublished() << endl << endl;
+    }
+}
+
+template <class T>
+int searchTitle(T list[], int length, string &item){
+ 
+    int loc;
+    bool found = false;
+
+    loc = 0;
+
+    while(loc < length && !found)
+        if(list[loc].getTitle() == item)
+            found = true;
+        else
+        {
+            loc++;
+        }
+    if(found)
+        return loc;
+    else 
+        return -1;      
+}
+
+void searchByIsbn(){
+   
+    string key;
+    int result;
+
+    cout << "Enter the ISBN you want to search for: ";
+    getline(cin, key);
+    cout << endl;
+
+    cout << "Searching books..." << endl << endl;
+
+    Book *tempArray;
+    tempArray = new Book[bookListSize];
+
+    for(int i = 0; i < bookListSize; i++){  //This will put books in an array of exact size of the list
+        tempArray[i] = books.peek();        //for searching.
+        books.deQueue();
+    }
+
+    result = searchIsbn(tempArray, bookListSize, key);
+
+    for(int i = 0; i < bookListSize; i++){
+        books.enQueue(tempArray[i]);
+    }
+
+    if(result == -1){
+        cout << "The ISBN was not found." << endl;
+    }else{
+        cout << "Author: " << tempArray[result].getAuthor() << endl;
+        cout << "Title: " << tempArray[result].getTitle() << endl;
+        cout << "Publisher: " << tempArray[result].getPublisher() << endl;
+        cout << "Description: " << tempArray[result].getDescription() << endl;
+        cout << "ISBN: " << tempArray[result].getIsbn() << endl;
+        cout << "Year published: " << tempArray[result].getYearPublished() << endl << endl;
+    }
+}
+
+template <class T>
+int searchIsbn(T list[], int length, string &item){
+ 
+    int loc;
+    bool found = false;
+
+    loc = 0;
+
+    while(loc < length && !found)
+        if(list[loc].getIsbn() == item)
+            found = true;
+        else
+        {
+            loc++;
+        }
+    if(found)
+        return loc;
+    else 
+        return -1;      
 }
