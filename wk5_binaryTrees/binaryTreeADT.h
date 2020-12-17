@@ -25,7 +25,7 @@ struct node{
 template <class T>
 class binaryTree{
     public:
-        const binaryTreeType<T> &operator=(const binaryTree<T>&);
+        const binaryTree<T> &operator=(const binaryTree<T>&);
             //Overload the assignment operator.
 
         bool isEmpty() const;
@@ -81,7 +81,7 @@ class binaryTree{
             //               If the binary tree is empty or deleteItem is not
             //               in the binary tree, an appropriate message is printed.
 
-        binaryTree(const binartyTree<T> &otherTree);
+        binaryTree(const binaryTree<T> &otherTree);
             //Copy constructor
         
         binaryTree();
@@ -136,5 +136,139 @@ class binaryTree{
             //Function to determine the number of leaves in the binary tree to which p points
             //Postcondition: The number of leaves in the binary tree to which p points is returned.
 };
+
+template <class T>
+bool binaryTree<T>::isEmpty() const {
+    return(root == nullptr);
+}
+
+template <class T>
+binaryTree<T>::binaryTree(){
+    root = nullptr;
+}
+
+template <class T>
+void binaryTree<T>::inorderTraversal() const {
+    inorder(root);
+}
+
+template <class T>
+void binaryTree<T>::preorderTraversal() const {
+    preorder(root);
+}
+
+template <class T>
+void binaryTree<T>::postorderTraversal() const {
+    postorder(root);
+}
+
+template <class T>
+int binaryTree<T>::treeHeight() const {
+    return height(root);
+}
+
+template <class T>
+void binaryTree<T>::inorder(node<T> *p) const {
+    if(p != nullptr){
+        inorder(p->lLink);
+        cout << p->data << " ";
+        inorder(p->rLink);
+    }
+}
+
+template <class T>
+void binaryTree<T>::preorder(node<T> *p) const {
+    if(p != nullptr){
+        cout << p->data << " ";
+        preorder(p->lLink);
+        preorder(p->rLink);
+    }
+}
+
+template <class T>
+void binaryTree<T>::postorder(node<T> *p) const {
+    if(p != nullptr){
+        postorder(p->lLink);
+        postorder(p->rLink);
+        cout << p->data << " ";
+    }
+}
+
+template <class T>
+int binaryTree<T>::height(node<T> *p) const {
+    if(p == nullptr)
+        return 0;
+    else
+    {
+        return 1 + max(height(p->lLink), height(p->rLink));
+    } 
+}
+
+template <class T>
+int binaryTree<T>::max(int x, int y) const{
+    if(x >= y)
+        return x;
+    else
+        return y;
+}
+
+template <class T>
+void binaryTree<T>::copyTree(node<T> *&copiedTreeRoot, node<T> *otherTreeRoot){
+    if(otherTreeRoot == nullptr)
+        copiedTreeRoot = nullptr;
+    else
+    {
+        copiedTreeRoot = new node<T>;
+        copiedTreeRoot->data = otherTreeRoot->data;
+        copyTree(copiedTreeRoot->lLink, otherTreeRoot->lLink);
+        copyTree(copiedTreeRoot->rLink, otherTreeRoot->rLink);
+    }
+}
+
+template <class T>
+void binaryTree<T>::destroy(node<T> *&p){
+    if(p != nullptr){
+        destroy(p->lLink);
+        destroy(p->rLink);
+        delete p;
+        p = nullptr;
+    }
+}
+
+template <class T>
+void binaryTree<T>::destroyTree(){
+    destroy(root);
+}
+
+template <class T>
+binaryTree<T>::binaryTree(const binaryTree<T> &otherTree){
+    if(otherTree.root == nullptr) //otherTree is empty
+        root = nullptr;
+    else
+    {
+            copyTree(root, otherTree.root);
+    }
+    
+}
+
+template <class T>
+binaryTree<T>::~binaryTree(){
+    destroy(root);
+}
+
+template <class T>
+const binaryTree<T> &binaryTree<T>::operator=(const binaryTree<T> &otherTree){
+    if(this != &otherTree){  //avoid self copy
+        if(root != nullptr) //if the binary tree isn't empty, destroy the binary tree
+            destroy(root);
+        if(otherTree.root == nullptr) //otherTree is empty
+            root = nullptr;
+        else
+        {
+                copyTree(root, otherTree.root);
+        }
+        return *this;
+    }
+}
 
 #endif
