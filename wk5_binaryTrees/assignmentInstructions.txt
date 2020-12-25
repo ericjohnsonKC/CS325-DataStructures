@@ -1,0 +1,25 @@
+A local computer store asked you to develop a program that will manage the sale of computers 
+that they have in stock. The program will be able to add information about new computers, as 
+well as deleting those sold.  
+
+Write a C++ VS console application to implement a menu-driven program for managing the computer 
+store using binary search trees. When the application executes, all data about the available 
+computers should be stored in a file named Computers. The data includes the code, name, 
+Operating system, hard drive, ram, and price of each computer. Each field will be on a separate 
+line.  Starting the application will cause the creation of a binary search tree, with one node 
+corresponding to one computer. Each node will contain a computer code. In addition, by starting 
+the program the user should be presented with a welcome message, the current date, and a menu with 
+the following items:
+
+·         Add new
+
+·         Remove-sold
+
+·         List all
+
+You are to implement functionalities that will be capable of adding and removing computers as well 
+as listing all computers that are available in the store. Please note that when a new computer is 
+added, both a binary tree and a text file should be updated. Similarly, when a computer is sold, 
+information should be removed from both the binary tree and a text file.
+
+ 

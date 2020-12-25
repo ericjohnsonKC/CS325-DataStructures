@@ -15,6 +15,9 @@
 #ifndef binaryTreeADT_h
 #define binaryTreeADT_h
 
+#include <iostream>
+
+
 template <class T>    // Define the node type
 struct node{
     T data;
@@ -33,15 +36,15 @@ class binaryTree{
             //Postcondition: Returns true if the binary tree is empty;
             //               otherwise, returns false.
         
-        void inorderTraversal() const;
+        void inorderTraversal(void (*visit) (T &item)) const;
             //Function to do an inorder traversal of the binary tree.
-            //Postcondition: Nodes are printed in inorder sequence.
+            //Postcondition: Nodes are visited in inorder sequence.
         
-        void preorderTraversal() const;
+        void preorderTraversal(void (*visit) (T &item)) const;
             //Function to do a preorder traversal of the binary tree.
             //Postcondition: Nodes are printed in preorder sequence.
 
-        void postorderTraversal() const;
+        void postorderTraversal(void (*visit) (T &item)) const;
             //Function to do a postorder traversal of the binary tree.
             //Postcondition: Nodes are printed in postorder sequence.
 
@@ -105,17 +108,17 @@ class binaryTree{
             //               binary tree to which p points, is deallocated.
             //               p = nullptr;
 
-        void inorder(node<T> *p) const;
+        void inorder(node<T> *p, void (*visit) (T &item)) const;
             //Function to do an inorder traversal of the binary tree to which p points.
             //Postcondition: Nodes of the binary tree, to which p points, are printed
             //               in inorder sequence.
 
-        void preorder(node<T> *p) const;
+        void preorder(node<T> *p, void (*visit) (T &item)) const;
             //Function to do a preorder traversal of the binary tree to which p points.
             //Postcondition: Nodes of the binary tree, to which p points, are printed
             //               in preorder sequence.
 
-        void postorder(node<T> *p) const;
+        void postorder(node<T> *p, void (*visit) (T &item)) const;
             //Function to do a postorder traversal of the binary tree to which p points.
             //Postcondition: Nodes of the binary tree, to which p points, are printed in 
             //               postorder sequence.
@@ -148,18 +151,18 @@ binaryTree<T>::binaryTree(){
 }
 
 template <class T>
-void binaryTree<T>::inorderTraversal() const {
-    inorder(root);
+void binaryTree<T>::inorderTraversal(void (*visit) (T &item)) const {
+    inorder(root, *visit);
 }
 
 template <class T>
-void binaryTree<T>::preorderTraversal() const {
-    preorder(root);
+void binaryTree<T>::preorderTraversal(void (*visit) (T &item)) const {
+    preorder(root, *visit);
 }
 
 template <class T>
-void binaryTree<T>::postorderTraversal() const {
-    postorder(root);
+void binaryTree<T>::postorderTraversal(void (*visit) (T &item)) const {
+    postorder(root, *visit);
 }
 
 template <class T>
@@ -168,29 +171,29 @@ int binaryTree<T>::treeHeight() const {
 }
 
 template <class T>
-void binaryTree<T>::inorder(node<T> *p) const {
+void binaryTree<T>::inorder(node<T> *p, void (*visit) (T &item)) const {
     if(p != nullptr){
-        inorder(p->lLink);
-        cout << p->data << " ";
-        inorder(p->rLink);
+        inorder(p->lLink, *visit);
+        (*visit)(p->data);
+        inorder(p->rLink, *visit);
     }
 }
 
 template <class T>
-void binaryTree<T>::preorder(node<T> *p) const {
+void binaryTree<T>::preorder(node<T> *p, void (*visit) (T &item)) const {
     if(p != nullptr){
-        cout << p->data << " ";
-        preorder(p->lLink);
-        preorder(p->rLink);
+        (*visit)(p->data);
+        preorder(p->lLink, *visit);
+        preorder(p->rLink, *visit);
     }
 }
 
 template <class T>
-void binaryTree<T>::postorder(node<T> *p) const {
+void binaryTree<T>::postorder(node<T> *p, void (*visit) (T &item)) const {
     if(p != nullptr){
-        postorder(p->lLink);
-        postorder(p->rLink);
-        cout << p->data << " ";
+        postorder(p->lLink, *visit);
+        postorder(p->rLink, *visit);
+        (*visit)(p->data);
     }
 }
 
@@ -267,7 +270,39 @@ const binaryTree<T> &binaryTree<T>::operator=(const binaryTree<T> &otherTree){
         {
                 copyTree(root, otherTree.root);
         }
-        return *this;
+        
+    }
+    return *this;
+}
+
+template <class T>
+int binaryTree<T>::treeNodeCount() const {
+    return nodeCount(root);
+}
+
+template <class T>
+int binaryTree<T>::nodeCount(node<T> *p) const{
+    if(p == nullptr)
+        return 0;
+    else
+    {
+        return 1 + nodeCount(p->lLink) + nodeCount(p->rLink);
+    }  
+}
+
+template <class T>
+int binaryTree<T>::treeLeavesCount() const {
+    return leavesCount(root);
+}
+
+template <class T>
+int binaryTree<T>::leavesCount(node<T> *p) const{
+    if(p == nullptr)
+        return 0;
+    else if(p->lLink == nullptr && p->rLink == nullptr)
+        return 1;
+    else{
+        return leavesCount(p->lLink) + leavesCount(p->rLink);
     }
 }
 
