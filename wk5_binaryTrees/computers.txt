@@ -1,2 +1,2 @@
-2,comp2Name,comp2OS,comp2HD,comp2Ram,60000
-1,comp1 name,comp1 OS,comp1 HD,comp1 Ram,50000
+1,computer1 name,computer1 os,computer1 hard drive,computer1 ram,50000
+3,computer3 name,computer3 os,computer3 hard drive,computer3 ram,57500

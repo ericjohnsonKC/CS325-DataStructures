@@ -1,0 +1,40 @@
+Data Structures – Week 6 Assignment
+Graph Data Structures
+
+Graphs are frequently used in social networks such as LinkedIn or Facebook where each member is 
+represented with the vertex.  Furthermore, each vertex is a structure with the fields:
+
+·         Name
+
+·         Member ID
+
+·         Gender
+
+·         Status
+
+Create a console application capable of managing members. It should be able to add a new member, 
+delete a member, add a friend, and display a list of all friends for a member.
+
+When started, the application will display a welcome message with the current date and the following menu:
+
+·         Add member: Program creates new vertex and adds new member to the graph.  Member information 
+consists of Name, Member ID, Gender, and Status saved in the structure. 
+
+·         Delete Member: program deletes member from the graph
+
+·         Add Friend:  Program adds the friend to the existing member
+
+·         List Friends: Program lists all friends for the particular member.
+
+ 
+
+Submission
+
+1.    Create a Microsoft Word document name IP1_YourName.docx
+
+2.    Take screenshots, with timestamps, of each menu item in use to show a successful compile and 
+successful run. Paste the screenshots into the Word document. NOTE: Failure to provide screenshots 
+with time stamps will result in a score of 1.
+
+3.    Copy your code into the Word document. For each line of the code provide a description explaining 
+what it does
