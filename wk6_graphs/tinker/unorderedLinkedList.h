@@ -36,6 +36,8 @@ public:
       //               first points to the first node, last
       //               points to the last node of the updated 
       //               list, and count is decremented by 1.
+
+    void visitEach(void (*visit)(Type &item)) const;
 };
 
 
@@ -162,5 +164,16 @@ void unorderedLinkedList<Type>::deleteNode(const Type& deleteItem)
     }//end else
 }//end deleteNode
 
+template <class Type>
+void unorderedLinkedList<Type>::visitEach(void (*visit)(Type &item)) const{
+    nodeType<Type> *current;
+
+    current = this->first;
+
+    while(current != nullptr){
+        (*visit)(current->info);
+        current = current->link;
+    }
+}
 
 #endif

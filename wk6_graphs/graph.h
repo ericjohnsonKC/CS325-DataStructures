@@ -11,6 +11,7 @@
  * ******************************************/
 
 #include "unorderedLinkedList.h"
+#include "linkedQueueType.h"
 
 #include <iostream>
 #include <fstream>
@@ -206,18 +207,18 @@ void graphType::breadthFirstTraversal(){
 
     for(int index = 0; index < gSize; index++)
         if(!visited[index]){
-            queue.addQueue(index);
+            queue.enQueue(index);
             visited[index] = true;
             std::cout << " " << index << " ";
 
             while(!queue.isEmptyQueue()){
                 int u = queue.front();
-                queue.deleteQueue();
+                queue.deQueue();
 
                 for(graphIt = graph[u].begin(); graphIt != graph[u].end(); ++graphIt){
                     int w = *graphIt;
                     if(!visited[w]){
-                        queue.addQueue(w);
+                        queue.enQueue(w);
                         visited[w] = true;
                         std::cout << " " << w << " ";
                     }

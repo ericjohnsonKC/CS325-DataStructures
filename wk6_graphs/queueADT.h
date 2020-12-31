@@ -12,6 +12,9 @@
  *  This file will define an abstract class for a queue.
  * ***********************************/
 
+#ifndef queueAbstractClass_H
+#define queueAbstractClass_H
+
 template <typename T>
 class queueAbstractClass
 {
@@ -56,3 +59,5 @@ class queueAbstractClass
             //Postcondition: The queue is changed and the first element
             //  is removed from the queue.
 };
+
+#endif

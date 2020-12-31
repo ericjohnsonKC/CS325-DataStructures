@@ -10,8 +10,12 @@
  *  This file is a class header for a linkedQueueType.
  * ******************************************/
 
+#ifndef linkedQueueType_H
+#define linkedQueueType_H
+
 #include "queueADT.h"
 
+#include <iostream>
 #include <cassert>
 
 template<class T>
@@ -21,7 +25,7 @@ struct node{
 };
 
 template<class T>
-class linkedQueueType: public queueADT<T>{
+class linkedQueueType: public queueAbstractClass<T>{
     public:
         const linkedQueueType<T> & operator = (const linkedQueueType<T>&);
             //Overload the assignment operator.
@@ -163,10 +167,67 @@ linkedQueueType<T>::linkedQueueType(){
 
 template<class T>
 linkedQueueType<T>::linkedQueueType(const linkedQueueType<T> & otherQueue){
-    //****************************write code here******************************************************
+    queueFront = nullptr;
+    queueRear = nullptr;
+
+    node<T> *current, *newNode, *last;
+
+    if(otherQueue.queueFront != nullptr){
+        current = otherQueue.queueFront;
+        queueFront = new node<T>;
+        queueFront->data = current->data;
+        queueFront->link = nullptr;
+        queueRear = queueFront;
+        last = queueFront;
+        current = current->link;
+
+        while(current != nullptr){
+            newNode = new node<T>;
+            newNode->data = current->data;
+            newNode->link = nullptr;
+            queueRear = newNode;
+            last->link = newNode;
+            last = newNode;
+            current = current->link;
+        }
+    }
 }
 
 template<class T>
 linkedQueueType<T>::~linkedQueueType(){
-    //****************************write code here******************************************************
+    initializeQueue();
 }
+
+template<class T>
+const linkedQueueType<T>& linkedQueueType<T>::operator = (const linkedQueueType<T> & otherQueue){
+    if(this != &otherQueue){
+        node<T> *newNode, *current, *last;
+
+        if(queueFront != nullptr)
+            initializeQueue();
+        if(otherQueue.queueFront == nullptr){
+            queueFront = nullptr;
+            queueRear = nullptr;
+        }else{
+            current = otherQueue.queueFront;
+            queueFront = new node<T>;
+            queueFront->data = current->data;
+            queueFront->link = nullptr;
+            queueRear = queueFront;
+            last = queueFront;
+            current = current->link;
+
+            while(current != nullptr){
+                newNode = new node<T>;
+                newNode->data = current->data;
+                newNode->link = nullptr;
+                queueRear = newNode;
+                last->link = newNode;
+                last = newNode;
+                current = current->link;
+            }
+        }
+    }
+    return *this;
+}
+#endif
