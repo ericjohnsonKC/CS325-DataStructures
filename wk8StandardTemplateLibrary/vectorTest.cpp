@@ -66,7 +66,7 @@ void displayTime(){
 
 void checkIfFileExists(){
     ifstream txtFile;
-    txtFile.open("computers.txt");
+    txtFile.open("books.txt");
     bool txtFileExists = false;
     if(txtFile){
         txtFileExists = true;
@@ -77,7 +77,7 @@ void checkIfFileExists(){
        
     }else{
         ofstream textFile;
-        textFile.open("computers.txt");
+        textFile.open("books.txt");
         textFile.close();
     }
 
