@@ -1,0 +1,43 @@
+A local library hired you to create a program that will help them organize their book collection. 
+Their collection consists of 3500 books. They would like to be able to display all books by the 
+author, so users could find specific book easier.
+
+For this project, create a menu-driven, console application that will read data from a text file, 
+and store the data in the vector container.
+
+Each field in the text file will be stored in a separate line. Starting the application will trigger 
+the creation of vector of structs, where each struct will contain one book. Furthermore, structs will 
+contain the following information: author, title, publisher, description, ISBN, and year published 
+fields. It will be pushed at the back of the vector.
+
+In addition, when started, the application will present a welcome message with the current date, and a 
+menu with the following menu items:
+
+·         Add new book: program adds the book to the vector and to the text file
+
+·         Remove book: program removes the book from the vector and from the text file
+
+·         Remove All: program deletes vector
+
+·         Search by author: Program prompts the user for the author’s name, search a vector for an author, 
+and if found, the author’s name with the book title will be displayed to the user
+
+·         Search by ISBN Program prompts user for the ISBN number, searches a vector for given ISBN, and 
+if found, the author’s name with the book title and ISBN number will be displayed to the user
+
+ 
+
+Implement the functionalities that will support such operations.
+
+ 
+
+Submission
+
+1.    Create a Microsoft Word document name IP1_YourName.docx
+
+2.    Take screenshots, with timestamps, of each menu item in use to show a successful compile and 
+successful run. Paste the screenshots into the Word document. NOTE: Failure to provide screenshots 
+with time stamps will result in a score of 1.
+
+3.    Copy your code into the Word document. For each line of the code provide a description explaining 
+what it does
